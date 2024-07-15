@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap"
+        rel="stylesheet">
+    <title>Responsive Navigation Bar</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Crimson Text", serif;
+            background: radial-gradient(circle, rgba(128, 0, 128, 0.3) 60%, rgba(0, 0, 0, 1) 100%);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            z-index: 2;
+            /* Ensure navbar is above blurred image */
+        }
+
+        .logo img {
+            height: 50px;
+            width: 100px;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+        }
+
+        .nav-links li {
+            margin: 0 15px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            font-size: 28px;
+        }
+
+        .red a {
+            color: red;
+        }
+
+        .pink a {
+            color: purple;
+        }
+
+        .green a {
+            color: green;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            color: gray;
+        }
+
+        .hamburger .line {
+            width: 25px;
+            height: 3px;
+            background-color: black;
+            margin: 4px 0;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 60px;
+                right: 0;
+                width: 100%;
+                flex-direction: column;
+                align-items: center;
+                z-index: 1;
+                /* Ensure nav links are above blurred image */
+            }
+
+            .nav-links li {
+                margin: 10px 0;
+            }
+
+            .hamburger {
+                display: flex;
+                z-index: 3;
+                /* Ensure hamburger menu is above blurred image */
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+        }
+
+        .center-image {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 80vh;
+            cursor: pointer;
+            position: relative;
+            z-index: 1;
+        }
+
+        .center-image img {
+            max-width: 60%;
+            height: auto;
+            transform: rotate(-10deg);
+            transition: transform 0.3s ease-in-out;
+            border-radius: 8px;
+            filter: blur(0);
+        }
+
+        .center-image img.zoomed {
+            transform: scale(1.5) rotate(-10deg);
+            transition: transform 0.3s ease-in-out, filter 0.5s ease-in-out;
+            filter: contrast(175%) brightness(103%);
+        }
+
+        .container {
+            padding: 20px;
+            width: 30%;
+            margin: -80px 10px;
+            text-align: left;
+            color: white;
+            position: absolute;
+            right: 10px;
+            top: 95%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 8px;
+            z-index: 2;
+        }
+
+        .container p {
+            line-height: 1.6;
+            text-align: justify;
+        }
+
+        .rating {
+            margin-top: 10px;
+        }
+
+        .rating .fa {
+            font-size: 24px;
+            color: orange;
+            margin-right: 5px;
+        }
+
+        .blur-background {
+            filter: blur(8px);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- START NAVIGATION -->
+    <nav class="navbar">
+        <div class="logo"><img src="logos.png" alt="logo"></div>
+        <ul class="nav-links">
+            <li class="red"><a href="RED.html">RED</a></li>
+            <li class="pink"><a href="#purple">PURPLE</a></li>
+            <li class="green"><a href="GREEN.html">GREEN</a></li>
+        </ul>
+        <div class="hamburger">
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+        </div>
+    </nav>
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const hamburger = document.querySelector('.hamburger');
+            const navLinks = document.querySelector('.nav-links');
+            const image = document.querySelector('.center-image img');
+            const navbar = document.querySelector('.navbar');
+            const container = document.querySelector('.container');
+
+            hamburger.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+            });
+
+            // Add click event listener to zoom the image and blur background
+            image.addEventListener('click', function () {
+                this.classList.toggle('zoomed');
+                navbar.classList.toggle('blur-background');
+                container.classList.toggle('blur-background');
+            });
+        });
+    </script>
+    <!-- END NAVIGATION -->
+
+    <!-- START LARGE IMAGE -->
+    <div class="center-image">
+        <img src="PURPLE.png" alt="Large Image">
+    </div>
+    <!-- END LARGE IMAGE -->
+
+    <!-- START DESCRIPTION AND RATING CONTAINER -->
+    <div class="container">
+        <p>The radiance lives on with the b-ball original. Crossing hardwood comfort with off-court flair, it puts a
+            fresh spin on what you know best: '80s-inspired construction, bold details and nothin'-but-net style.</p>
+        <div class="rating">
+            <span class="fa fa-star"></span>
+            <span class="fa fa-star"></span>
+            <span class="fa fa-star"></span>
+            <span class="fa fa-star"></span>
+            <span class="fa fa-star"></span>
+        </div>
+    </div>
+    <!-- END DESCRIPTION AND RATING CONTAINER -->
+
+</body>
+
+</html>
